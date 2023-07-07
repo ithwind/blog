@@ -1,7 +1,6 @@
 package com.ithwind.controller;
 
 
-;
 import com.ithwind.api.CommonResult;
 import com.ithwind.domain.vo.HotArticleVo;
 import com.ithwind.service.ArticleService;
