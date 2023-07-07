@@ -1,10 +1,10 @@
-package com.ithwind.admin;
+package com.ithwind;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AdminApplicationTests {
+class FrameworkApplicationTests {
 
     @Test
     void contextLoads() {
