@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +20,8 @@ import java.time.LocalDateTime;
  * @author IthWind
  * @since 2023-07-186
  */
-@Getter
-@Setter
 @TableName("sg_article")
+@Data
 public class Article implements Serializable {
 
     @Serial
@@ -54,6 +54,11 @@ public class Article implements Serializable {
     @TableField("category_id")
     private Long categoryId;
 
+    /**
+     *  所属类名
+     */
+    @TableField(exist = false)
+    private String categoryName;
     /**
      * 缩略图
      */

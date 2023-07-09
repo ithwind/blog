@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ithwind.api.CommonResult;
 import com.ithwind.domain.pojo.Article;
 import com.ithwind.domain.vo.HotArticleVo;
+import com.ithwind.domain.vo.PageVo;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ import java.util.List;
 public interface ArticleService extends IService<Article> {
 
     CommonResult<List<HotArticleVo>> hotArticleList();
+
+    CommonResult<PageVo> articleList(Integer pageNum, Integer pageSize, Long categoryId);
 }
