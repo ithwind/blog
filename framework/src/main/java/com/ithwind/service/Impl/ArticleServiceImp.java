@@ -9,6 +9,7 @@ import com.ithwind.constants.SystemConstants;
 import com.ithwind.domain.mapper.SgArticleMapper;
 import com.ithwind.domain.pojo.Article;
 import com.ithwind.domain.pojo.Category;
+import com.ithwind.domain.vo.ArticleDetailVo;
 import com.ithwind.domain.vo.ArticleListVo;
 import com.ithwind.domain.vo.HotArticleVo;
 import com.ithwind.domain.vo.PageVo;
@@ -86,5 +87,20 @@ public class ArticleServiceImp extends ServiceImpl<SgArticleMapper, Article> imp
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(page.getRecords(), ArticleListVo.class);
         PageVo pageVo = new PageVo(articleListVos, page.getTotal());
         return CommonResult.success(pageVo);
+    }
+
+    @Override
+    public CommonResult<?> getArticleDetail(Long id) {
+        //根据id查询文章
+        Article article = getById(id);
+        //转换vo
+        ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
+        //查询分类名
+        Long categoryId = articleDetailVo.getCategoryId();
+        Category category = categoryService.getById(categoryId);
+        if(category != null){
+            articleDetailVo.setCategoryName(category.getName());
+        }
+        return CommonResult.success(articleDetailVo);
     }
 }

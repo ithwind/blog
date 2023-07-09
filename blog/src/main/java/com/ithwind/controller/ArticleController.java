@@ -27,4 +27,9 @@ public class ArticleController {
 
         return articleService.articleList(pageNum, pageSize, categoryId);
     }
+
+    @GetMapping("/{id}")
+    public CommonResult<?> getArticleDetail(@PathVariable("id") Long id){
+        return articleService.getArticleDetail(id);
+    }
 }
