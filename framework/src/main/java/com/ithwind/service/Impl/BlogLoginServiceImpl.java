@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -47,5 +48,17 @@ public class BlogLoginServiceImpl implements BlogLoginService {
 
         BlogUserLoginVo blogUserLoginVo = new BlogUserLoginVo(jwt, userInfoVo);
         return CommonResult.success(blogUserLoginVo);
+    }
+
+    @Override
+    public CommonResult<?> logout() {
+        //获取token
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        //获取userId
+        Long userId = loginUser.getUser().getId();
+        //删除redis用户信息
+        redisCache.deleteObject("blogLogin:" + userId);
+        return CommonResult.success("退出成功");
     }
 }

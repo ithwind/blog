@@ -16,6 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Resource
     private RedisCache redisCache;
@@ -67,9 +69,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             return;
         }
         //存入SecurityContextHolder
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,null);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken
+                (loginUser,null,null);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
         if (filterChain != null) {
             filterChain.doFilter(request, response);
         }

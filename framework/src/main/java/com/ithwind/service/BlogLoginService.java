@@ -5,4 +5,6 @@ import com.ithwind.domain.pojo.User;
 
 public interface BlogLoginService {
     CommonResult<?> login(User user);
+
+    CommonResult<?> logout();
 }

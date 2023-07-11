@@ -6,11 +6,13 @@ import com.ithwind.domain.vo.HotArticleVo;
 import com.ithwind.domain.vo.PageVo;
 import com.ithwind.service.ArticleService;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/article")
+@Slf4j
 public class ArticleController {
     @Resource
     private ArticleService articleService;
@@ -22,10 +24,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/articleList", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:8080")
-    public CommonResult<PageVo> articleList(@RequestParam("pageNum")Integer pageNum,
-                                            @RequestParam("pageSize")Integer pageSize,
-                                            Long categoryId){
-
+    public CommonResult<PageVo> articleList(Integer pageNum, Integer pageSize, Long categoryId){
         return articleService.articleList(pageNum, pageSize, categoryId);
     }
 

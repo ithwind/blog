@@ -12,13 +12,19 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
     @Resource
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Resource
+    private AccessDeniedHandler accessDeniedHandler;
+    @Resource
+    private AuthenticationEntryPoint authenticationEntryPoint;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -27,11 +33,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         //登录请求可以匿名访问
-                        authorizationManagerRequestMatcherRegistry.requestMatchers("/login").anonymous()
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers("/login").anonymous()
+                                .requestMatchers("/logout").authenticated()
                                 .requestMatchers("/article/hotArticleList").authenticated()
                                 .anyRequest().permitAll());
         http.logout(AbstractHttpConfigurer::disable);
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
+                httpSecurityExceptionHandlingConfigurer
+                        .accessDeniedHandler(accessDeniedHandler)
+                        .authenticationEntryPoint(authenticationEntryPoint));
+        http.logout(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
