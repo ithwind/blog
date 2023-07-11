@@ -14,13 +14,14 @@ import java.util.List;
 public class ArticleController {
     @Resource
     private ArticleService articleService;
-    @CrossOrigin
     @RequestMapping(value = "/hotArticleList", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8080")
     public CommonResult<List<HotArticleVo>> getHotArticleList(){
         return articleService.hotArticleList();
     }
 
-    @RequestMapping(value = "/articleList", method = RequestMethod.POST)
+    @RequestMapping(value = "/articleList", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8080")
     public CommonResult<PageVo> articleList(@RequestParam("pageNum")Integer pageNum,
                                             @RequestParam("pageSize")Integer pageSize,
                                             Long categoryId){
@@ -29,6 +30,7 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:8080")
     public CommonResult<?> getArticleDetail(@PathVariable("id") Long id){
         return articleService.getArticleDetail(id);
     }

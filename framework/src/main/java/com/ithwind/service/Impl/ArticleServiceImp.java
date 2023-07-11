@@ -3,7 +3,6 @@ package com.ithwind.service.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
 import com.ithwind.api.CommonResult;
 import com.ithwind.constants.SystemConstants;
 import com.ithwind.domain.mapper.SgArticleMapper;
@@ -23,9 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -68,7 +64,12 @@ public class ArticleServiceImp extends ServiceImpl<SgArticleMapper, Article> imp
         page(page, queryWrapper);
 
         //查询categoryName
-        List<Article> articles = page.getRecords();
+        List<Article> articles = page.getRecords().stream()
+                .peek(article -> {
+            //获取分类id
+            Category category = categoryService.getById(article.getCategoryId());
+            article.setCategoryName(category.getName());
+        }).toList();
           //根据id查询
         //第一种
         /*for (Article article : articles) {
@@ -77,12 +78,12 @@ public class ArticleServiceImp extends ServiceImpl<SgArticleMapper, Article> imp
             article.setCategoryName(category.getName());
         }*/
         //第二种
-        articles.stream()
+/*        articles = articles.stream()
                 .peek(article -> {
                     //获取分类id
                     Category category = categoryService.getById(article.getCategoryId());
                     article.setCategoryName(category.getName());
-                }).collect(Collectors.toList());
+                }).collect(Collectors.toList());*/
         //封装查询结果
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(page.getRecords(), ArticleListVo.class);
         PageVo pageVo = new PageVo(articleListVos, page.getTotal());

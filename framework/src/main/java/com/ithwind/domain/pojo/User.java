@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +24,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("sys_user")
+@Data
 public class User implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -94,7 +100,7 @@ public class User implements Serializable {
      * 创建时间
      */
     @TableField("create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新人
@@ -106,7 +112,7 @@ public class User implements Serializable {
      * 更新时间
      */
     @TableField("update_time")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 删除标志（0代表未删除，1代表已删除）

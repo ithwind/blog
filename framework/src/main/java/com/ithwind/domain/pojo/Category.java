@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -58,7 +60,7 @@ public class Category implements Serializable {
     private Long createBy;
 
     @TableField("create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @TableField("update_by")
     private Long updateBy;

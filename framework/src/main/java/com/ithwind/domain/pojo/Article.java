@@ -1,17 +1,15 @@
 package com.ithwind.domain.pojo;
 
-import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -100,7 +98,7 @@ public class Article implements Serializable {
     private Long updateBy;
 
     @TableField("update_time")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 删除标志（0代表未删除，1代表已删除）

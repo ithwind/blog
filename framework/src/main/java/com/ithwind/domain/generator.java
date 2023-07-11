@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 
+import java.lang.annotation.Annotation;
 import java.util.Collections;
 
 public class generator {
@@ -45,7 +46,7 @@ public class generator {
                         .enableBaseResultMap()
                         .superClass(BaseMapper.class)
                         .formatMapperFileName("%sMapper")
-                        .enableMapperAnnotation()
+                        .mapperAnnotation(Annotation.class)
                         .enableFileOverride())
                 .execute();
     }

@@ -10,6 +10,7 @@ import com.ithwind.util.BeanCopyUtils;
 import com.ithwind.util.JwtUtil;
 import com.ithwind.util.RedisCache;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,9 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class BlogLoginServiceImpl implements BlogLoginService {
+
     @Resource
     AuthenticationManager authenticationManager;
     @Resource
@@ -41,6 +44,7 @@ public class BlogLoginServiceImpl implements BlogLoginService {
         redisCache.setCacheObject("blogLogin:" + userId, loginUser);
         //把token和userInfo封装
         UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
+
         BlogUserLoginVo blogUserLoginVo = new BlogUserLoginVo(jwt, userInfoVo);
         return CommonResult.success(blogUserLoginVo);
     }
