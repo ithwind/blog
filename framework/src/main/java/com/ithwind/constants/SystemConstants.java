@@ -7,4 +7,6 @@ public class SystemConstants {
     public static final int ARTICLE_STATUS_PUBLISH = 0;
 
     public static final String CATEGORY_STATUS_NORMAL = "0";
+
+    public static final int COMMENT_ROOT = -1;
 }

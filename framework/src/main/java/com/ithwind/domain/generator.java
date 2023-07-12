@@ -26,10 +26,8 @@ public class generator {
                         .xml("domain.mapperXml")
                         .service("service")
                         .serviceImpl("service.Impl")
-                        .controller("controller")
-                        //.moduleName("framework")
                         .pathInfo(Collections.singletonMap(OutputFile.xml, "C:\\Users\\IthWind\\IdeaProjects\\demo\\framework\\src\\main\\resources\\mapper")))
-                .strategyConfig(builder -> builder.addInclude("sys_user")//添加表
+                .strategyConfig(builder -> builder.addInclude("sg_comment")//添加表
                         .addTablePrefix("sg_")
                         .addTablePrefix("sys_")
                         .serviceBuilder()
