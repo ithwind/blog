@@ -26,4 +26,8 @@ public class CommentController {
     public CommonResult<?> commentList(Long articleId, Integer pageNum, Integer pageSize){
         return commentService.commentList(articleId, pageNum, pageSize);
     }
+    @PostMapping
+    public CommonResult<?> addComment(@RequestBody Comment comment){
+        return commentService.addComment(comment);
+    }
 }
